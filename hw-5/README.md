@@ -44,5 +44,5 @@ Un repositorio público que contenga un `README.md` con lo siguiente:
 4. **Diagrama de secuencia**
 5. **Diagrama de estado**
 6. **Capturas UI** generadas en Uizard
-   > 💡 **Tip:** Recuerda que también tiene un agente de IA con el que con solo darle un prompt puedes generar toda la UI del ejercicio. Por ejemplo, estos diseños fueron generados con un prompt en Uizard en el plan gratuito.
+   > 💡 **Tip:** Recuerda que también tiene un agente de IA con el que con solo darle un prompt puedes generar toda la UI del ejercicio. Por ejemplo, [estos diseños](https://app.uizard.io/p/5f80ea55) fueron generados con un prompt en Uizard en el plan gratuito.
 7. **Tecnologías y justificación** de elección
