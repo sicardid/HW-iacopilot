@@ -6,11 +6,21 @@ namespace Library.Infrastructure.Data;
 
 public class JsonData
 {
+    // Parameterless constructor for testing/mocking
+    public JsonData()
+    {
+        _authorsPath = "dummy.json";
+        _booksPath = "dummy.json";
+        _bookItemsPath = "dummy.json";
+        _patronsPath = "dummy.json";
+        _loansPath = "dummy.json";
+        Loans = new List<Loan>();
+    }
     public List<Author>? Authors { get; set; }
     public List<Book>? Books { get; set; }
     public List<BookItem>? BookItems { get; set; }
     public List<Patron>? Patrons { get; set; }
-    public List<Loan>? Loans { get; set; }
+    public virtual List<Loan> Loans { get; set; } = new List<Loan>();
 
     private readonly string _authorsPath;
     private readonly string _booksPath;
@@ -26,9 +36,10 @@ public class JsonData
         _bookItemsPath = section["BookItems"] ?? Path.Combine("Json", "BookItems.json");
         _patronsPath = section["Patrons"] ?? Path.Combine("Json", "Patrons.json");
         _loansPath = section["Loans"] ?? Path.Combine("Json", "Loans.json");
+        Loans = new List<Loan>();
     }
 
-    public async Task EnsureDataLoaded()
+    public virtual async Task EnsureDataLoaded()
     {
         if (Patrons == null)
         {
@@ -36,7 +47,7 @@ public class JsonData
         }
     }
 
-    public async Task LoadData()
+    public virtual async Task LoadData()
     {
         Authors = await LoadJson<List<Author>>(_authorsPath);
         Books = await LoadJson<List<Book>>(_booksPath);
@@ -45,7 +56,7 @@ public class JsonData
         Loans = await LoadJson<List<Loan>>(_loansPath);
     }
 
-    public async Task SaveLoans(IEnumerable<Loan> loans)
+    public virtual async Task SaveLoans(IEnumerable<Loan> loans)
     {
         List<Loan> loanList = new List<Loan>();
         foreach (var l in loans)
@@ -118,7 +129,7 @@ public class JsonData
         return populated;
     }
 
-    public Loan GetPopulatedLoan(Loan l)
+    public virtual Loan GetPopulatedLoan(Loan l)
     {
         Loan populated = new Loan
         {

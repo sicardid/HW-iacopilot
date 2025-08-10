@@ -15,8 +15,10 @@ public class JsonLoanRepository : ILoanRepository
     public async Task<Loan?> GetLoan(int id)
     {
         await _jsonData.EnsureDataLoaded();
+        if (_jsonData.Loans == null || _jsonData.Loans.Count == 0)
+            return null;
 
-        foreach (Loan loan in _jsonData.Loans!)
+        foreach (Loan loan in _jsonData.Loans)
         {
             if (loan.Id == id)
             {
@@ -29,8 +31,11 @@ public class JsonLoanRepository : ILoanRepository
 
     public async Task UpdateLoan(Loan loan)
     {
+        if (_jsonData.Loans == null || _jsonData.Loans.Count == 0)
+            return;
+
         Loan? existingLoan = null;
-        foreach (Loan l in _jsonData.Loans!)
+        foreach (Loan l in _jsonData.Loans)
         {
             if (l.Id == loan.Id)
             {
@@ -47,8 +52,7 @@ public class JsonLoanRepository : ILoanRepository
             existingLoan.DueDate = loan.DueDate;
             existingLoan.ReturnDate = loan.ReturnDate;
 
-            await _jsonData.SaveLoans(_jsonData.Loans!);
-
+            await _jsonData.SaveLoans(_jsonData.Loans);
             await _jsonData.LoadData();
         }
     }
